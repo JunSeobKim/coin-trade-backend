@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Coin Trade API
+  version: 1.0.0
+  description: 코인 거래소 API
+
+paths:
+  /v1/coins:
+    get:
+      tags:
+        - Coins
+      summary: 코인 검색
+      description: 코인 이름 또는 코인 ID로 코인을 검색합니다. 원화 마켓(KRW)만 지원합니다.
+      parameters:
+        - $ref: '#/components/parameters/CoinId'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CoinResponseV1'
+
+components:
+  parameters:
+    CoinId:
+      name: coinId
+      in: query
+      description: 조회할 코인 ID
+      required: false
+      schema:
+        type: string
+
+    Name:
+      name: name
+      in: query
+      description: 조회할 코인 이름
+      required: false
+      schema:
+        type: string
+
+  schemas:
+    CoinResponseV1:
+      type: object
+      properties:
+        coinId:
+          type: string
+          description: 코인 ID
+          example: BTC
+        name:
+          type: string
+          description: 코인의 이름 (한글)
+          example: 비트코인
+        tradePrice:
+          type: number
+          description: 현재가
+        signedChangePrice:
+          type: number
+          description: 전일 대비 가격 변화
+        accTradePrice24h:
+          type: number
+          description: 24시간 누적 거래 대금
