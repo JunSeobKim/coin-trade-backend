@@ -24,6 +24,26 @@ paths:
                 items:
                   $ref: '#/components/schemas/CoinResponseV1'
 
+  /v1/orders:
+    post:
+      tags:
+        - Orders
+      summary: 매수/매도 주문
+      description: 코인을 매수 또는 매도하는 주문을 생성합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestV1'
+      responses:
+        '201':
+          description: 주문 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponseV1'
+
 components:
   parameters:
     CoinId:
@@ -63,3 +83,58 @@ components:
         accTradePrice24h:
           type: number
           description: 24시간 누적 거래 대금
+
+    OrderRequestV1:
+      type: object
+      required:
+        - coinId
+        - orderType
+        - orderMethod
+        - quantity
+      properties:
+        coinId:
+          type: string
+          description: 주문할 코인 ID
+          example: BTC
+        orderType:
+          type: string
+          enum: [BUY, SELL]
+          description: 매수(BUY) 또는 매도(SELL)
+          example: BUY
+        orderMethod:
+          type: string
+          enum: [MARKET, LIMIT]
+          description: 시장가(MARKET) 또는 지정가(LIMIT)
+          example: MARKET
+        price:
+          type: number
+          nullable: true
+          description: 주문 가격 (매수 시 필수)
+          example: 5000
+        quantity:
+          type: number
+          description: 주문 수량 (매도 시 필수)
+          example: 0.01
+
+    OrderResponseV1:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          description: 주문 ID
+          example: 1
+        status:
+          type: string
+          enum: [S, F, C] # 성공, 실패, 취소
+          description: 주문 상태
+          example: F
+        message:
+          type: string
+          nullable: true
+          description: 주문 실패 사유
+          enum:
+            - INSUFFICIENT_BALANCE    # 잔고 부족
+            - INSUFFICIENT_COIN       # 보유 코인 부족
+            - UNDER_MIN_ORDER_AMOUNT  # 최소 주문 금액 미만
+            - NO_MATCHED_ORDER        # 체결 대상 없음 (지정가 주문 실패 시)
+          example: INSUFFICIENT_BALANCE
