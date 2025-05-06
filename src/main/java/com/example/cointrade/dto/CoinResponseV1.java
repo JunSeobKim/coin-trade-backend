@@ -7,9 +7,9 @@ import lombok.Value;
 @Value
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CoinResponseV1 {
-    String coinId;
-    String name;
-    Double tradePrice;
-    Double signedChangePrice;
-    Double accTrade24hPrice;
+    final String coinId;
+    final String name;
+    final Double tradePrice;
+    final Double signedChangePrice;
+    final Double accTrade24hPrice;
 }

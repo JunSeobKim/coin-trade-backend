@@ -1,6 +1,6 @@
 package com.example.cointrade.service;
 
-import com.example.cointrade.dto.CoinResponseV1;
+import com.example.cointrade.model.Coin;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class CoinServiceImpl implements CoinService {
 
     @Override
-    public List<CoinResponseV1> getCoins(String coinId, String name) {
+    public List<Coin> getCoins(String coinId, String name) {
         throw new UnsupportedOperationException();
     }
 
