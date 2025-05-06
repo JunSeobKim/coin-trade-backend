@@ -13,4 +13,20 @@ class CoinControllerTest {
         // TODO: coin-009
         throw new UnsupportedOperationException();
     }
+
+    @Test
+    @Disabled
+    @DisplayName("should return empty list for invalid coinId")
+    void shouldReturnEmptyListForInvalidCoinId() {
+        // TODO: coin-009
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("should return empty list for invalid name")
+    void shouldReturnEmptyListForInvalidName() {
+        // TODO: coin-009
+        throw new UnsupportedOperationException();
+    }
 }
